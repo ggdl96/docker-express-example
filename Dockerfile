@@ -70,4 +70,12 @@ RUN apk add --no-cache --virtual .build-deps-yarn curl gnupg tar \
 
 RUN apk add --no-cache libc6-compat
 
+WORKDIR /usr/src/app/
+
+COPY package*.json /usr/src/app/
+
+RUN npm install
+
+COPY . /usr/src/app/
+
 CMD [ "node" ]

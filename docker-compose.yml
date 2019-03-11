@@ -1,15 +1,22 @@
-version: "2"
+version: "3"
 services:
+  redis:
+   image: "redis"
+   expose:
+    - 6379
   node:
+    links:
+      - redis
+    environment:
+      - REDIS_URL=redis://cache
     image: "node:8"
     user: "node"
-    working_dir: /home/node/app
+    working_dir: /usr/src/app/
     environment:
       - NODE_ENV=production
+    build: .
     volumes:
-      - ./:/home/node/app
+      - ./:/usr/src/app/
     ports:
       - '3000:3000'
     command: "npm start"
-  redis:
-   image: "redis"
