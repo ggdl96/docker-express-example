@@ -5,9 +5,11 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const indexRouter = require('./src/routes/index');
 const redisDB = require('./src/services/redis');
+const helmet = require('helmet')
 
 const app = express();
 
+app.use(helmet())
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
