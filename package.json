@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./src/bin/www",
+    "start": "nodemon ./src/bin/www",
     "dev": "NODE_ENV=development node ./src/bin/www",
     "lint": "node_modules/.bin/eslint ./src"
   },
@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "eslint": "^5.16.0",
-    "eslint-config-strongloop": "^2.1.0"
+    "eslint-config-strongloop": "^2.1.0",
+    "nodemon": "^1.19.0"
   }
 }
