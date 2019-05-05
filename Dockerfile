@@ -1,6 +1,7 @@
 FROM alpine:3.9
 
 ENV NODE_VERSION 10.15.3
+ENV PROJECT_DIRECTORY /home/node/app
 
 RUN addgroup -g 1000 node \
     && adduser -u 1000 -G node -s /bin/sh -D node \
@@ -70,12 +71,17 @@ RUN apk add --no-cache --virtual .build-deps-yarn curl gnupg tar \
 
 RUN apk add --no-cache libc6-compat
 
-WORKDIR /usr/src/app/
+RUN mkdir -p "$PROJECT_DIRECTORY/node_modules" && chown -R node:node $PROJECT_DIRECTORY
 
-COPY package*.json /usr/src/app/
+WORKDIR $PROJECT_DIRECTORY
 
-RUN npm install
+COPY package.json $PROJECT_DIRECTORY
+COPY yarn.lock $PROJECT_DIRECTORY
 
-COPY . /usr/src/app/
+USER node
+
+RUN yarn
+
+COPY --chown=node:node . .
 
 CMD [ "node" ]

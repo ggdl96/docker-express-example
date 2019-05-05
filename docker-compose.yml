@@ -4,19 +4,22 @@ services:
    image: "redis"
    expose:
     - 6379
+   ports:
+    - "6379:6379"
+
   node:
     links:
       - redis
     environment:
-      - REDIS_URL=redis://cache
     image: "node:8"
     user: "node"
-    working_dir: /usr/src/app/
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development
     build: .
     volumes:
-      - ./:/usr/src/app/
+      - ./:/usr/app
     ports:
       - '3000:3000'
     command: "npm start"
+    depends_on:
+      - redis
