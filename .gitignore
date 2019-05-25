@@ -24,3 +24,7 @@ coverage
 
 # Benchmarking
 benchmarks/graphs
+
+# Config
+src/config/config.development.js
+src/config/config.test.js
