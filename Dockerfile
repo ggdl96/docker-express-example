@@ -82,6 +82,6 @@ USER node
 
 RUN yarn
 
-COPY --chown=node:node . .
+COPY . $PROJECT_DIRECTORY
 
 CMD [ "node" ]

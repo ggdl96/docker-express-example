@@ -17,9 +17,9 @@ services:
       - NODE_ENV=development
     build: .
     volumes:
-      - ./:/usr/app
+      - .:/home/node/app
     ports:
       - '3000:3000'
-    command: "npm start"
+    command: "yarn start"
     depends_on:
       - redis
