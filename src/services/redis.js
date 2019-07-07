@@ -9,5 +9,8 @@ const options = {
     host: config.redis.host,
     port: config.redis.port,
 };
-  
-module.exports = redis.createClient(options);
+
+const createClientForRefreshTokens = () => redis.createClient({ ...options, db: '1' });
+const createClientForExcludedTokens = () => redis.createClient({ ...options, db: '2' });
+
+module.exports = { createClientForRefreshTokens, createClientForExcludedTokens };
