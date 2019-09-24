@@ -1,0 +1,13 @@
+openapi: '3.0.0'
+info: 
+  title: AUTH
+  description: 'A small api for creating sessions'
+  version: '0.1'
+paths:
+  $ref: ./paths/index.yaml
+components:
+  schemas: ./components/schemas/index.yaml
+  securitySchemes:
+    $ref: ./components/securitySchemes/index.yaml
+security:
+  - BearerAuth

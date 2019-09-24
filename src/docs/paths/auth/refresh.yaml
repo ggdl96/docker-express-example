@@ -1,0 +1,13 @@
+post:
+  tags: 
+    - Authentification
+  description: Refresh user's session
+  summary: Refresh
+  requestBody:
+    content:
+      'application/json':
+        schema:
+          $ref: ../../components/schemas/Login/login.yaml
+  responses:
+    '200':
+      description: User has logged in

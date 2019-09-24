@@ -1,0 +1,4 @@
+/auth/login:
+  $ref: ./auth/login.yaml
+/auth/refresh:
+  $ref: ./auth/refresh.yaml

@@ -1,0 +1,3 @@
+schemas:
+  $ref: ./schemas/index.yaml
+$ref: ./securitySchemes/index.yaml
