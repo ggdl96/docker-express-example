@@ -1,8 +1,12 @@
 type: object
 properties:
   email:
-    required: true
     type: string
+    maxLength: 150
   password:
-    required: true
     type: string
+    minLength: 8
+    maxLength: 50
+required:
+  - email
+  - password

@@ -4,8 +4,12 @@ const router = express.Router();
 const userRoutes = require('./auth');
 const docsRoutes = require('./docs');
 
-const routes = (redisRefresh, redisExclude) => {
-    router.use('/auth', userRoutes(redisRefresh, redisExclude));
+const openApiValidator = require('./middlewares/openApi');
+
+const routes = async (redisRefresh, redisExclude) => {
+    const requestValidator = await openApiValidator();
+
+    router.use('/auth', requestValidator, userRoutes(redisRefresh, redisExclude));
 
     // Documentation
     router.use('/docs', docsRoutes());
