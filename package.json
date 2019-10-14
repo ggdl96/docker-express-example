@@ -6,7 +6,7 @@
     "start": "nodemon ./src/bin/www -e js,yaml",
     "dev": "NODE_ENV=development node ./src/bin/www",
     "lint": "node_modules/.bin/eslint ./src",
-    "test": "jest"
+    "test": "NODE_ENV=test jest"
   },
   "dependencies": {
     "bluebird": "^3.5.3",
