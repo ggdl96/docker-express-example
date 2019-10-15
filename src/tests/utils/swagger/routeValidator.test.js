@@ -1,6 +1,16 @@
 const routeValidator = require('../../../utils/swagger/routeValidator');
 
 describe('Route Validator tests', function () {
+    describe('Success', function () {
+        function getDefaultRequest(originalUrl = 'some-url', method = 'GET') {
+            return { originalUrl, method };
+        }
+
+        it('should return true if all validation pass', function () {
+            expect(routeValidator({ 'some-url': { get: {} } }, getDefaultRequest())).toEqual(true);
+        });
+    });
+
     describe('Validations', function () {
         function getDefaultRequest(originalUrl = 'some-url', method = 'GET') {
             return { originalUrl, method };
@@ -43,11 +53,13 @@ describe('Route Validator tests', function () {
         });
 
         it('should throw exception if req method is not valid', function () {
-            expect(() => routeValidator({ 'some-url': {} }, getDefaultRequest('some-url', 'xsd'))).toThrowError('Request Method: xsd is not valid');
+            expect(() => routeValidator({ 'some-url': {} }, getDefaultRequest('some-url', 'xsd')))
+                .toThrowError('Request Method: xsd is not valid');
         });
 
         it('should throw exception if req method is not allowed', function () {
-            expect(() => routeValidator({ 'some-url': {post: {}} }, getDefaultRequest())).toThrowError('Request Method: GET is not allowed');
+            expect(() => routeValidator({ 'some-url': {post: {}} }, getDefaultRequest()))
+                .toThrowError('Request Method: GET is not allowed');
         });
     });
 });
