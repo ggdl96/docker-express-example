@@ -1,13 +1,29 @@
 const { RouteMethodNotAllowed, RouteNotFound } = require('../../models/Error/OpenApi');
+const commonMethods = ['GET','POST','PUT','PATCH'];
 
-module.exports = (routes, req) => {
-    if (routes[req.originalUrl]) {
+module.exports = (routes, { originalUrl, method } = {}) => {
+    if (!routes && !originalUrl && !method) {
+        throw new Error('Both routes and req are required');
+    }
+
+    if (
+        typeof routes !== 'object'
+        || Array.isArray(routes)
+        || Object.keys(routes).length === 0
+    ) {
+        throw new Error('routes param is not valid');
+    }
+    if (routes[originalUrl]) {
         const httpMethods = Object
-            .keys(routes[req.originalUrl])
+            .keys(routes[originalUrl])
             .map(route => route.toUpperCase());
 
-        if (!httpMethods.includes(req.method)) {
-            throw new RouteMethodNotAllowed(`Request Method: ${req.method} is not allowed`);
+        if (!commonMethods.includes(method)) {
+            throw new RouteMethodNotAllowed(`Request Method: ${method} is not valid`);
+        }
+
+        if (!httpMethods.includes(method)) {
+            throw new RouteMethodNotAllowed(`Request Method: ${method} is not allowed`);
         }
 
         return true;
