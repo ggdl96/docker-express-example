@@ -25,7 +25,9 @@
     "eslint": "^5.16.0",
     "eslint-config-strongloop": "^2.1.0",
     "jest": "^24.8.0",
+    "mock-req-res": "^1.1.2",
     "nodemon": "^1.19.0",
+    "sinon": "^7.5.0",
     "swagger-ui-express": "^4.0.2",
     "yamljs": "^0.3.0"
   }
