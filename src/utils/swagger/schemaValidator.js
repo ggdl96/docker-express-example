@@ -1,6 +1,7 @@
 const validateBodyRequest = (body, schema) =>
     Object.entries(body).reduce((properties, [property, value]) => {
         const rules = schema.properties[property];
+
         const toReturn = Object.entries(rules).reduce((acc, [rule, ruleValue]) => {
             switch(rule) {
             case 'type':
@@ -30,26 +31,23 @@ const validateBodyRequest = (body, schema) =>
         ];
     }, []);
 
-module.exports = (routes, req) => {
-    const contentTypes = Object.keys(routes[req.originalUrl].post.requestBody.content);
-    const reqContentType = req.headers['content-type'];
-
-    if (!contentTypes.includes(reqContentType)) {
-
-        return false;
+module.exports = (schema, body) => {
+    if (!schema && !body) {
+        throw new Error('Both schema and body are required');
     }
-    const schema = routes[req.originalUrl].post.requestBody.content[reqContentType].schema;
-    const propertiesRequired = schema.required;
+
+    const validationSchema = schema;
+    const propertiesRequired = validationSchema.required;
 
     if (propertiesRequired && propertiesRequired.length) {
         const validatedRequired = propertiesRequired.reduce((acc, key) =>
-            (typeof req.body[key] === 'undefined') ? [...acc, key] : [...acc], []);
+            (typeof body[key] === 'undefined') ? [...acc, key] : [...acc], []);
 
         if (validatedRequired.length) {
             return validatedRequired;
         }
     }
-    const validationObject = validateBodyRequest(req.body, schema);
+    const validationObject = validateBodyRequest(body, schema);
 
     return validationObject;
 };
