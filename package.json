@@ -6,7 +6,9 @@
     "start": "nodemon ./src/bin/www -e js,yaml",
     "dev": "NODE_ENV=development node ./src/bin/www",
     "lint": "node_modules/.bin/eslint ./src",
-    "test": "NODE_ENV=test jest"
+    "test": "NODE_ENV=test jest",
+    "coverage": "NODE_ENV=test jest --coverage",
+    "test-integration": "NODE_ENV=test jest --testPathPattern=test\\.integration\\.js$"
   },
   "dependencies": {
     "bluebird": "^3.5.3",

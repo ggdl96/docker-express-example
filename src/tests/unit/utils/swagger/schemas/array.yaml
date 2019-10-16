@@ -1,0 +1,33 @@
+type: object
+properties:
+  name:
+    type: string
+    maxLength: 150
+  car:
+    type: object
+    properties:
+      brand:
+        type: string
+        maxLength: 100
+      year:
+        type: number
+      modifications:
+        type: array
+        items:
+          additionalProperties: false
+          type: object
+          properties:
+            date:
+              type: string
+              format: date
+            nested_array:
+              type: array
+              items:
+                oneOf:
+                  - type: string
+                  - type: number
+    required:
+      - brand
+required:
+  - email
+  - password

@@ -1,0 +1,19 @@
+type: object
+properties:
+  name:
+    type: string
+    maxLength: 150
+  car:
+    type: object
+    additionalProperties: false
+    properties:
+      brand:
+        type: string
+        maxLength: 100
+      year:
+        type: number
+    required:
+      - brand
+required:
+  - email
+  - password

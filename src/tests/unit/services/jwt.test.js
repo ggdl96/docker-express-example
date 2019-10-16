@@ -1,4 +1,4 @@
-const jwtService = require('../../services/jwt');
+const jwtService = require('../../../services/jwt');
 
 describe('JWT Generator', function () {
     describe('Success', function () {

@@ -1,4 +1,4 @@
-const schemaValidator = require('../../../utils/swagger/schemaValidator');
+const schemaValidator = require('../../../../utils/swagger/schemaValidator');
 
 describe('Route Validator tests', function () {
     function getDefaultRequest(
