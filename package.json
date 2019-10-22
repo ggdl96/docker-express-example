@@ -6,9 +6,9 @@
     "start": "nodemon ./src/bin/www -e js,yaml",
     "dev": "NODE_ENV=development node ./src/bin/www",
     "lint": "node_modules/.bin/eslint ./src",
-    "test": "NODE_ENV=test jest",
+    "test": "NODE_ENV=test jest --testPathPattern=test\\.js$",
     "coverage": "NODE_ENV=test jest --coverage",
-    "test-integration": "NODE_ENV=test jest --testPathPattern=test\\.integration\\.js$"
+    "test-integration": "NODE_ENV=test jest --testRegex=test\\.integration\\.js$"
   },
   "dependencies": {
     "bluebird": "^3.5.3",
@@ -30,6 +30,7 @@
     "mock-req-res": "^1.1.2",
     "nodemon": "^1.19.0",
     "sinon": "^7.5.0",
+    "supertest": "^4.0.2",
     "swagger-ui-express": "^4.0.2",
     "yamljs": "^0.3.0"
   }
