@@ -3,7 +3,7 @@ const schemaValidator = require('../../../../utils/swagger/schemaValidator');
 describe('Route Validator tests', function () {
     function getDefaultRequest(
         originalUrl = 'some-url',
-        method = 'GET',
+        method = 'POST',
         headers = {contentType: 'application/json'},
         body = { email: 'pepe@gmail.com', password: '12345678' }
     ) {
@@ -58,6 +58,29 @@ describe('Route Validator tests', function () {
                     'email', 'password'
                 ]
             }, {});
+
+            errors.sort().map((error, index) => expect(error).toEqual(expectedErrors[index]));
+        });
+
+        it('should return array of validations not passed', function () {
+            const expectedErrors = [{ password: [{ length: 'Min length of 8 characters is required' }] }];
+            const errors = schemaValidator({
+                type: 'object',
+                properties: {
+                    email: {
+                        type: 'string',
+                        maxLength: 150
+                    },
+                    password: {
+                        type: 'string',
+                        minLength: 8,
+                        maxLength: 50,
+                    },
+                },
+                required: [
+                    'email', 'password'
+                ]
+            }, {email: 'pepe@gmail.com', password: '1234'});
 
             errors.sort().map((error, index) => expect(error).toEqual(expectedErrors[index]));
         });

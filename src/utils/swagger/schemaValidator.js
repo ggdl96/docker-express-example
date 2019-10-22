@@ -1,4 +1,4 @@
-const validateBodyRequest = (body, schema) =>
+const validateBodyRequest = (schema, body) =>
     Object.entries(body).reduce((properties, [property, value]) => {
         const rules = schema.properties[property];
 
@@ -11,7 +11,7 @@ const validateBodyRequest = (body, schema) =>
                 break;
             case 'minLength':
                 if (value.length < ruleValue) {
-                    return [...acc, { [ruleValue]: false }];
+                    return [...acc, { length: `Min length of ${ruleValue} characters is required` }];
                 }
                 break;
             case 'maxLength':
@@ -47,7 +47,8 @@ module.exports = (schema, body) => {
             return validatedRequired;
         }
     }
-    const validationObject = validateBodyRequest(body, schema);
+
+    const validationObject = validateBodyRequest(schema, body);
 
     return validationObject;
 };
