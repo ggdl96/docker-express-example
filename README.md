@@ -45,3 +45,23 @@ docker-compose build
 ```bash
 docker-compose up
 ```
+
+#### Tests
+
+##### unit
+
+```bash
+yarn test
+```
+
+##### integration
+
+```bash
+yarn test-integration
+```
+
+##### coverage
+
+```bash
+yarn coverage
+```
