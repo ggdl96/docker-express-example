@@ -24,8 +24,9 @@
     "swagger-parser": "^6.0.5"
   },
   "devDependencies": {
-    "eslint": "^5.16.0",
+    "eslint": "^6.5.1",
     "eslint-config-strongloop": "^2.1.0",
+    "eslint-plugin-jest": "^22.20.0",
     "jest": "^24.8.0",
     "mock-req-res": "^1.1.2",
     "nodemon": "^1.19.0",
