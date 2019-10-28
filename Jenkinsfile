@@ -1,10 +1,11 @@
 pipeline {
-    agent any
+    agent none
     stages { 
         stage('Example') {
+            agent dockerfile
             steps {
-                sh 'docker-compose build'
-                echo 'done!'
+                 filename 'Dockerfile'
+                label 'DockerFileLabel'
             }
         }
     }
