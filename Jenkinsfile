@@ -1,13 +1,12 @@
 pipeline {
-    agent none
+    agent {
+        dockerfile {
+            filename 'Dockerfile'
+            label 'DockerFileLabel'
+        }
+    }
     stages { 
         stage('Example') {
-            agent {
-                dockerfile {
-                    filename 'Dockerfile'
-                    label 'DockerFileLabel'
-                }
-            }
             steps {
                 echo 'DONE!'
             }
