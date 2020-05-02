@@ -1,6 +1,9 @@
 const { UserNotFound } = require('../models/Error/Core');
+const { default: logger } = require('../logger');
 
 async function getUser(email, password) {
+    logger.info('email of user: ', email);
+
     if (email === 'pepe@gmail.com' && password === '12345678') {
         return await Promise.resolve({ name: 'pepe' });
     }

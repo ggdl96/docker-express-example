@@ -2,15 +2,14 @@ const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const logger = require('morgan');
 const indexRouter = require('./routes/index');
 const redisDB = require('./services/redis');
 const helmet = require('helmet');
+const { default: logger } = require('./logger');
 
 const app = express();
 
 app.use(helmet());
-app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -21,6 +20,7 @@ indexRouter(
     redisDB.createClientForExcludedTokens()
 )
     .then((resolvedRoutes) => {
+        logger.info('Routes resolved');
         app.use(
             '/',
             resolvedRoutes
