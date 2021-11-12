@@ -21,7 +21,7 @@
     "jsonwebtoken": "^8.5.1",
     "log4js": "^6.2.0",
     "redis": "^2.8.0",
-    "swagger-parser": "^6.0.5"
+    "swagger-parser": "^10.0.3"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
@@ -32,7 +32,6 @@
     "nodemon": "^2.0.15",
     "sinon": "^7.5.0",
     "supertest": "^4.0.2",
-    "swagger-ui-express": "^4.1.4",
     "yamljs": "^0.3.0"
   }
 }
