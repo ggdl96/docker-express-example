@@ -5,7 +5,7 @@ async function getUser(email, password) {
     logger.info('email of user: ', email);
 
     if (email === 'pepe@gmail.com' && password === '12345678') {
-        return await Promise.resolve({ name: 'pepe' });
+        return await Promise.resolve({ name: 'pepe', email: 'pepe@pepe.com', role: 'admin' });
     }
 
     throw new UserNotFound('User not Found');
