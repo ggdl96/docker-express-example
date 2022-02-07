@@ -24,9 +24,13 @@ function auth(redis) {
         try {
             const user = await core.getUser(req.body.email, req.body.password);
             const token = await jwt.generateToken(user);
-            const refreshToken = createHash(hashLength);
+            let refreshToken = undefined;
 
-            await redis.setAsync(refreshToken, token, 'EX', 3000);
+            if (req.body.rememberme) {
+                refreshToken = createHash(hashLength);
+
+                await redis.setAsync(refreshToken, JSON.stringify(user), 'EX', 4000);
+            }
 
             if (config.env === 'production') {
                 res
@@ -37,7 +41,7 @@ function auth(redis) {
                         {
                             expires: new Date(Date.now() + 1000),
                             httpOnly: true,
-                            domain: ''
+                            domain: '',
                         }
                     )
                     .send({status: 'OK'});
@@ -45,7 +49,8 @@ function auth(redis) {
                 res
                     .status(200)
                     .data = {
-                        token, refresh_token: refreshToken
+                        token,
+                        refresh_token: refreshToken,
                     };
 
                 next();
@@ -81,9 +86,9 @@ function auth(redis) {
                 throw createError.BadRequest('No Refresh Token was present');
             }
 
-            const value = await redis.getAsync(refreshTokenFromRequest); 
+            const user = JSON.parse(await redis.getAsync(refreshTokenFromRequest)); 
 
-            if (!value) {
+            if (!user) {
                 throw createError.BadRequest('Not Found');
             }
 
@@ -91,15 +96,12 @@ function auth(redis) {
                 // work with cookie
             } else {
                 // work with request body
-                const user = jwt.decode(value);
                 const newToken = await jwt.generateToken({
-                    name: user.name
+                    ...user,
                 });
 
-                await redis.setAsync(refreshTokenFromRequest, newToken, 'EX', 30);
                 res.data = {
                     token: newToken,
-                    refresh_token: refreshTokenFromRequest
                 };
 
                 next();
