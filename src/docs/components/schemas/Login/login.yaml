@@ -7,6 +7,8 @@ properties:
     type: string
     minLength: 8
     maxLength: 50
+  rememberme:
+    type: boolean
 required:
   - email
   - password

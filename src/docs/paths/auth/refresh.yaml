@@ -7,7 +7,7 @@ post:
     content:
       'application/json':
         schema:
-          $ref: ../../components/schemas/Login/login.yaml
+          $ref: ../../components/schemas/Refresh/index.yaml
   responses:
     '200':
-      description: User has logged in
+      description: User has refreshed token
